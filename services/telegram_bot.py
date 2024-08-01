@@ -5,7 +5,6 @@ import google.generativeai as genai
 from collections import defaultdict
 from langdetect import detect, DetectorFactory, LangDetectException
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup, InlineQueryResultArticle, InputTextMessageContent
-from telegram.ext import CallbackContext
 from dotenv import load_dotenv
 
 # تحميل المتغيرات البيئية من ملف .env
@@ -192,3 +191,7 @@ async def inline_query(update: Update) -> None:
         )
     ]
     await update.inline_query.answer(results)
+
+if __name__ == '__main__':
+    port = int(os.getenv('PORT', 5000))  # الحصول على المنفذ من متغير البيئة PORT
+    app.run(host='0.0.0.0', port=port)
