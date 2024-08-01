@@ -1,6 +1,7 @@
 import os
+import requests
 from flask import Flask, request
-from telegram import Update
+from telegram import Update, Bot
 from telegram.ext import Dispatcher
 from services.telegram_bot import handle_update
 from config.config import TELEGRAM_API_KEY
@@ -8,7 +9,7 @@ from config.config import TELEGRAM_API_KEY
 app = Flask(__name__)
 
 # إعداد التوزيع للرسائل
-dispatcher = Dispatcher(None, None, use_context=True)
+dispatcher = Dispatcher(Bot(token=TELEGRAM_API_KEY), None, use_context=True)
 
 @app.route(f'/{TELEGRAM_API_KEY}', methods=['POST'])
 def webhook():
@@ -17,8 +18,7 @@ def webhook():
     return 'OK'
 
 def set_webhook():
-    import requests
-    webhook_url = f'https://google-gpt.onrender.com/{TELEGRAM_API_KEY}'  # تأكد من تحديث هذا النطاق ومفتاح API الخاص بك
+    webhook_url = f'https://google-gpt.onrender.com/{TELEGRAM_API_KEY}'  # استبدل <your-domain> بنطاقك الفعلي
     response = requests.get(f'https://api.telegram.org/bot{TELEGRAM_API_KEY}/setWebhook?url={webhook_url}')
     print(response.json())
 
