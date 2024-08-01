@@ -1,5 +1,6 @@
+flask
+gunicorn
 Flask==2.3.2
-Flask
 python-telegram-bot
 google-generativeai
 deep-translator
