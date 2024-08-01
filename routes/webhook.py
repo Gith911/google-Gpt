@@ -25,5 +25,6 @@ def set_webhook():
 if __name__ == '__main__':
     set_webhook()
     port = int(os.environ.get('PORT', 5000))  # الحصول على المنفذ من متغير البيئة PORT
-    print(f"Running on port {port}")  # تسجيل المنفذ
+    print(f"PORT environment variable is set to: {port}")  # تسجيل قيمة متغير البيئة PORT
+    print(f"Running on host 0.0.0.0 and port {port}")  # تسجيل معلومات الاستضافة والمنفذ
     app.run(host='0.0.0.0', port=port)  # تأكد من تحديث المنفذ إذا لزم الأمر
