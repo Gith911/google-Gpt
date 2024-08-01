@@ -1,4 +1,3 @@
-import os
 from flask import Flask, request
 from telegram import Update
 from telegram.ext import Dispatcher
@@ -18,13 +17,13 @@ def webhook():
 
 def set_webhook():
     import requests
-    webhook_url = f'https://google-gpt.onrender.com/{TELEGRAM_API_KEY}'  # استبدل `your-app-name` بعنوان خدمة Render الخاصة بك
+    webhook_url = f'https://google-gpt.onrender.com/{TELEGRAM_API_KEY}'
     response = requests.get(f'https://api.telegram.org/bot{TELEGRAM_API_KEY}/setWebhook?url={webhook_url}')
     print(response.json())
 
 if __name__ == '__main__':
     set_webhook()
-    port = int(os.environ.get('PORT', 5000))  # الحصول على المنفذ من متغير البيئة PORT
-    print(f"PORT environment variable is set to: {port}")  # تسجيل قيمة متغير البيئة PORT
-    print(f"Running on host 0.0.0.0 and port {port}")  # تسجيل معلومات الاستضافة والمنفذ
-    app.run(host='0.0.0.0', port=port)  # تأكد من تحديث المنفذ إذا لزم الأمر
+    port = int(os.environ.get('PORT', 5000))
+    print(f"PORT environment variable is set to: {port}")
+    print(f"Running on host 0.0.0.0 and port {port}")
+    app.run(host='0.0.0.0', port=port)
