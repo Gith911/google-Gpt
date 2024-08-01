@@ -23,4 +23,4 @@ def set_webhook():
 
 if __name__ == '__main__':
     set_webhook()
-    app.run(port=5000)  # تأكد من تحديث المنفذ إذا لزم الأمر
+    app.run(host='0.0.0.0', port=5000)  # تأكد من تحديث المنفذ إذا لزم الأمر
