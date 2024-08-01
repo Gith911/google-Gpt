@@ -1,14 +1,11 @@
 import unittest
-from services.telegram_bot import detect_language, translate_text
+from localization.localization import translate_text
 
-class TestTelegramBot(unittest.TestCase):
-    def test_detect_language(self):
-        self.assertEqual(detect_language("Hello"), "en")
-        self.assertEqual(detect_language("مرحبا"), "ar")
+class TestBot(unittest.TestCase):
 
-    def test_translate_text(self):
-        self.assertEqual(translate_text("Hello", "ar"), "مرحبا")
-        self.assertEqual(translate_text("مرحبا", "en"), "Hello")
+    def test_translation(self):
+        result = translate_text("مرحبا", target_lang='en', src_lang='auto')
+        self.assertEqual(result, "Hello")  # تأكد من النتيجة الصحيحة
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     unittest.main()

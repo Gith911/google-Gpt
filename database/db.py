@@ -1,33 +1,26 @@
 import sqlite3
 
-def init_db():
-    conn = sqlite3.connect('bot_database.db')
-    cursor = conn.cursor()
-    cursor.execute('''CREATE TABLE IF NOT EXISTS conversations (
-                        id INTEGER PRIMARY KEY AUTOINCREMENT,
-                        user_id TEXT,
-                        message TEXT,
-                        response TEXT,
-                        timestamp DATETIME DEFAULT CURRENT_TIMESTAMP
-                      )''')
-    conn.commit()
-    conn.close()
+DATABASE_NAME = 'chatbot.db'
 
-def update_conversation(user_id, message, response):
-    conn = sqlite3.connect('bot_database.db')
-    cursor = conn.cursor()
-    cursor.execute("INSERT INTO conversations (user_id, message, response) VALUES (?, ?, ?)",
-                   (user_id, message, response))
-    conn.commit()
-    conn.close()
+def get_connection():
+    conn = sqlite3.connect(DATABASE_NAME)
+    return conn
 
-def reset_db():
-    conn = sqlite3.connect('bot_database.db')
-    cursor = conn.cursor()
-    cursor.execute("DROP TABLE IF EXISTS conversations")
-    conn.commit()
-    init_db()
-    conn.close()
-
-if __name__ == "__main__":
-    reset_db()
+def initialize_db():
+    conn = get_connection()
+    with conn:
+        conn.execute('''
+            CREATE TABLE IF NOT EXISTS users (
+                user_id INTEGER PRIMARY KEY,
+                username TEXT,
+                message_count INTEGER DEFAULT 0
+            )
+        ''')
+        conn.execute('''
+            CREATE TABLE IF NOT EXISTS conversations (
+                user_id INTEGER,
+                message TEXT,
+                reply TEXT,
+                FOREIGN KEY (user_id) REFERENCES users (user_id)
+            )
+        ''')

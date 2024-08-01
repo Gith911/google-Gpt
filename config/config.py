@@ -1,6 +1,9 @@
 import os
+from dotenv import load_dotenv
 
-class Config:
-    TELEGRAM_TOKEN = os.getenv("7431640201:AAGydTJbeO61hyiZsFf5_0snxnB9g_tCRvo")
-    GOOGLE_API_KEY = os.getenv("AIzaSyC0t2N0Twc3pe50nw-26cBFtsofyPz-Ffc")
-    WEBHOOK_URL = os.getenv("https://google-gpt.onrender.com")
+# تحميل المتغيرات البيئية من ملف .env
+load_dotenv()
+
+# تعيين مفاتيح API من المتغيرات البيئية
+TELEGRAM_API_KEY = os.getenv('TELEGRAM_API_KEY')
+GOOGLE_API_KEY = os.getenv('GOOGLE_API_KEY')
