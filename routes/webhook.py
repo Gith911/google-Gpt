@@ -17,7 +17,7 @@ def webhook():
 
 def set_webhook():
     import requests
-    webhook_url = f'https://your-domain.com/{TELEGRAM_API_KEY}'  # استبدل `your-domain.com` بنطاقك الفعلي
+    webhook_url = f'https://google-gpt.onrender.com/{7428721481:AAGRgS7a1brVowVN5m9ozi6DiWT5uQ8tBbs}'  # استبدل `your-domain.com` بنطاقك الفعلي
     response = requests.get(f'https://api.telegram.org/bot{TELEGRAM_API_KEY}/setWebhook?url={webhook_url}')
     print(response.json())
 
