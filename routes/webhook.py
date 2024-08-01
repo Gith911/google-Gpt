@@ -1,3 +1,4 @@
+import os
 from flask import Flask, request
 from telegram import Update
 from telegram.ext import Dispatcher
@@ -23,4 +24,5 @@ def set_webhook():
 
 if __name__ == '__main__':
     set_webhook()
-    app.run(host='0.0.0.0', port=5000)  # تأكد من تحديث المنفذ إذا لزم الأمر
+    port = int(os.environ.get('PORT', 5000))  # الحصول على المنفذ من متغير البيئة PORT
+    app.run(host='0.0.0.0', port=port)  # تأكد من تحديث المنفذ إذا لزم الأمر
