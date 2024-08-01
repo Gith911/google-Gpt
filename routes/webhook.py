@@ -1,5 +1,7 @@
+import os
+import requests
 from flask import Flask, request
-from telegram import Update
+from telegram import Update, Bot
 from telegram.ext import Dispatcher
 from services.telegram_bot import handle_update
 from config.config import TELEGRAM_API_KEY
@@ -7,7 +9,7 @@ from config.config import TELEGRAM_API_KEY
 app = Flask(__name__)
 
 # إعداد التوزيع للرسائل
-dispatcher = Dispatcher(None, None, use_context=True)
+dispatcher = Dispatcher(Bot(token=TELEGRAM_API_KEY), None, use_context=True)
 
 @app.route(f'/{TELEGRAM_API_KEY}', methods=['POST'])
 def webhook():
@@ -16,11 +18,13 @@ def webhook():
     return 'OK'
 
 def set_webhook():
-    import requests
-    webhook_url = f'https://google-gpt.onrender.com/{7428721481:AAGRgS7a1brVowVN5m9ozi6DiWT5uQ8tBbs}'  # استبدل `your-domain.com` بنطاقك الفعلي
+    webhook_url = f'https://google-gpt.onrender.com/{TELEGRAM_API_KEY}'  # استبدل <your-domain> بنطاقك الفعلي
     response = requests.get(f'https://api.telegram.org/bot{TELEGRAM_API_KEY}/setWebhook?url={webhook_url}')
     print(response.json())
 
 if __name__ == '__main__':
     set_webhook()
-    app.run(port=5000)  # تأكد من تحديث المنفذ إذا لزم الأمر
+    port = int(os.environ.get('PORT', 5000))  # الحصول على المنفذ من متغير البيئة PORT
+    print(f"PORT environment variable is set to: {port}")  # تسجيل قيمة متغير البيئة PORT
+    print(f"Running on host 0.0.0.0 and port {port}")  # تسجيل معلومات الاستضافة والمنفذ
+    app.run(host='0.0.0.0', port=port)  # تأكد من تحديث المنفذ إذا لزم الأمر
